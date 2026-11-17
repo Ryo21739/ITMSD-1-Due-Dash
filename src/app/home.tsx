@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { Bell, Plus, TrendingUp } from 'lucide-react-native';
+import { Bell, LogOut, Plus, TrendingUp } from 'lucide-react-native';
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -74,9 +74,17 @@ export default function HomeScreen() {
           <Text style={[type.title23, styles.greetingTitle]}>{`${greetingFor(now)}, ${firstName}.`}</Text>
           <Text style={[type.copy12, styles.greetingBody]}>A clear plan for a busy week.</Text>
         </View>
-        <View style={styles.avatar}>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={`Open account and log out for ${firstName}`}
+          onPress={() => router.push('/logout')}
+          hitSlop={6}
+          style={({ pressed }) => [styles.avatar, pressed && styles.pressed]}>
           <Text style={[type.label14, styles.initials]}>{initials}</Text>
-        </View>
+          <View style={styles.avatarBadge}>
+            <LogOut size={10} color={colors.white} strokeWidth={2.2} />
+          </View>
+        </Pressable>
       </View>
 
       <View style={styles.metrics}>
@@ -165,6 +173,19 @@ const styles = StyleSheet.create({
     height: 42,
     borderRadius: 100,
     backgroundColor: colors.mint,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  avatarBadge: {
+    position: 'absolute',
+    right: -2,
+    bottom: -2,
+    width: 18,
+    height: 18,
+    borderRadius: 100,
+    backgroundColor: colors.inkDeep,
+    borderWidth: 2,
+    borderColor: colors.bg,
     alignItems: 'center',
     justifyContent: 'center',
   },

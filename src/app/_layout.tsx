@@ -9,6 +9,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { AuthGate } from '@/components/auth/AuthGate';
 import { colors } from '@/constants/colors';
 import { AppDataProvider } from '@/hooks/use-app-data';
 import { SessionProvider } from '@/hooks/use-session';
@@ -37,26 +38,29 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <SessionProvider>
         <AppDataProvider>
-          <StatusBar style="light" />
-          <Stack
-            screenOptions={{
-              headerShown: false,
-              contentStyle: { backgroundColor: colors.bg },
-              animation: 'slide_from_right',
-            }}>
-            <Stack.Screen name="index" options={{ animation: 'none' }} />
-            <Stack.Screen name="welcome" options={{ animation: 'fade' }} />
-            <Stack.Screen name="login" />
-            <Stack.Screen name="home" options={{ animation: 'fade' }} />
-            <Stack.Screen name="calendar" />
-            <Stack.Screen name="assignments" />
-            <Stack.Screen name="courses" />
-            <Stack.Screen name="reminders" />
-            <Stack.Screen name="progress" />
-            <Stack.Screen name="assignment/new" />
-            <Stack.Screen name="assignment/[id]/index" />
-            <Stack.Screen name="assignment/[id]/edit" />
-          </Stack>
+          <AuthGate>
+            <StatusBar style="light" />
+            <Stack
+              screenOptions={{
+                headerShown: false,
+                contentStyle: { backgroundColor: colors.bg },
+                animation: 'slide_from_right',
+              }}>
+              <Stack.Screen name="index" options={{ animation: 'none' }} />
+              <Stack.Screen name="welcome" options={{ animation: 'fade' }} />
+              <Stack.Screen name="login" />
+              <Stack.Screen name="home" options={{ animation: 'fade' }} />
+              <Stack.Screen name="logout" options={{ animation: 'fade' }} />
+              <Stack.Screen name="calendar" />
+              <Stack.Screen name="assignments" />
+              <Stack.Screen name="courses" />
+              <Stack.Screen name="reminders" />
+              <Stack.Screen name="progress" />
+              <Stack.Screen name="assignment/new" />
+              <Stack.Screen name="assignment/[id]/index" />
+              <Stack.Screen name="assignment/[id]/edit" />
+            </Stack>
+          </AuthGate>
         </AppDataProvider>
       </SessionProvider>
     </SafeAreaProvider>

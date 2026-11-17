@@ -29,7 +29,7 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSignIn = async () => {
+  const handleSignIn = () => {
     if (!firstName.trim()) {
       Alert.alert('Add your first name', 'We use it to greet you on your planner.');
       return;
@@ -45,7 +45,7 @@ export default function LoginScreen() {
       );
       return;
     }
-    await signIn({
+    signIn({
       firstName: firstName.trim(),
       lastName: lastName.trim(),
       email: email.trim(),
